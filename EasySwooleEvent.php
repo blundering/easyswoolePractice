@@ -26,14 +26,15 @@ class EasySwooleEvent implements Event
     {
         // TODO: Implement initialize() method.
         date_default_timezone_set('Asia/Shanghai');
-        CommandContainer::getInstance()->set(new Demo());
+        
+        CommandContainer::getInstance()->set(new Demo()); // 注册自定义 console 命令
     }
 
     public static function mainServerCreate(EventRegister $register)
     {
         Config::getInstance()->setDynamicConf('hello', 'world');
         // TODO: Implement mainServerCreate() method.
-        Crontab::getInstance()->addTask(SayHello::class);
+        Crontab::getInstance()->addTask(SayHello::class); // 添加 crontab 任务
         Crontab::getInstance()->addTask(SayWorld::class);
     }
 
