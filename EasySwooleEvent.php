@@ -11,7 +11,9 @@ namespace EasySwoole\EasySwoole;
 
 use App\Crontab\SayHello;
 use App\Crontab\SayWorld;
+use App\Log\LogHandle;
 use App\Utility\ConsoleCommand\Demo;
+use EasySwoole\Component\Di;
 use EasySwoole\EasySwoole\Console\CommandContainer;
 use EasySwoole\EasySwoole\Crontab\Crontab;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
@@ -28,6 +30,7 @@ class EasySwooleEvent implements Event
         date_default_timezone_set('Asia/Shanghai');
         
         CommandContainer::getInstance()->set(new Demo()); // 注册自定义 console 命令
+        Di::getInstance()->set(SysConst::LOGGER_HANDLER, new LogHandle()); // 注入自定义的 LogHandle
     }
 
     public static function mainServerCreate(EventRegister $register)
