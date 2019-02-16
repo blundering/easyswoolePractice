@@ -35,7 +35,7 @@ return [
                 'USER'=>'root',
                 'PASSWORD'=>'123456',
                 'MODULES'=>[
-                    'auth','server','help'
+                    'auth','server','help', 'demo'
                 ],
                 'PUSH_LOG' => true,
             ]
