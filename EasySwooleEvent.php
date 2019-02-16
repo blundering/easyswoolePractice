@@ -9,8 +9,11 @@
 namespace EasySwoole\EasySwoole;
 
 
+use App\Crontab\SayHello;
+use App\Crontab\SayWorld;
 use App\Utility\ConsoleCommand\Demo;
 use EasySwoole\EasySwoole\Console\CommandContainer;
+use EasySwoole\EasySwoole\Crontab\Crontab;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
@@ -30,6 +33,8 @@ class EasySwooleEvent implements Event
     {
         Config::getInstance()->setDynamicConf('hello', 'world');
         // TODO: Implement mainServerCreate() method.
+        Crontab::getInstance()->addTask(SayHello::class);
+        Crontab::getInstance()->addTask(SayWorld::class);
     }
 
     public static function onRequest(Request $request, Response $response): bool
