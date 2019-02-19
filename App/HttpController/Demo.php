@@ -11,6 +11,7 @@ namespace App\HttpController;
 use EasySwoole\Component\Container;
 use EasySwoole\Http\AbstractInterface\Controller;
 use EasySwoole\Spl\SplArray;
+use EasySwoole\Spl\SplString;
 
 class Demo extends Controller
 {
@@ -47,6 +48,7 @@ class Demo extends Controller
         ];
         $splArray->loadArray($array);
         
+        
         $three = $splArray->get('one.two.three');
         $this->response()->write($three);  // aha
         
@@ -54,5 +56,22 @@ class Demo extends Controller
 
         $splArray->set('one.two', 'hello world');
         $this->response()->write(json_encode($splArray)); // {"one":{"two":"hello world"}}
+        $this->response()->write($splArray->toXML()); // <xml><one><two>hello world</two></one></xml>
     }
+
+    public function splString()
+    {
+        $string = new SplString("hello world!");
+        var_dump($string->explode(' ')->getArrayCopy()); 
+        /*
+         * array(2) {
+              [0] =>
+              string(5) "hello"
+              [1] =>
+              string(6) "world!"
+            }
+         */
+        var_dump($string->pad(20, '!')->__toString()); // string(20) "hello world!!!!!!!!!"
+    }
+    
 }
